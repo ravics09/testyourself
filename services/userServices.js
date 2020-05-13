@@ -64,4 +64,8 @@ const getUserById = async (id) => {
 	return user;
 }
 
-module.exports = { createUser, loginUser, getUserById };
+const deleteUserById = async (id) => {
+	return await User.findByIdAndDelete(id);
+}
+
+module.exports = { createUser, loginUser, getUserById, deleteUserById };
