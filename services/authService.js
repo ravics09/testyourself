@@ -33,7 +33,7 @@ const verifyToken = (req, res, next) => {
         res.status(401).json({ message: 'NoTokenFoundInRequest' });
     }
 
-    jwt.verify(token, secretKey, { expireIn }, (err, decoded) => {
+    jwt.verify(token, secretKey, { expiresIn: expireIn, algorithm: 'HS256' }, (err, decoded) => {
         if (err) {
             console.log("Error wile decoding token");
             throw err;

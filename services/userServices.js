@@ -59,4 +59,9 @@ const loginUser = async (userData) => {
 	}
 }
 
-module.exports = { createUser, loginUser };
+const getUserById = async (id) => {
+	const user = await User.findById(id).select('-password'); // Avoid to fetch password 
+	return user;
+}
+
+module.exports = { createUser, loginUser, getUserById };

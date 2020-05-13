@@ -26,7 +26,18 @@ const register = (req, res, next) => {
 		})
 }
 
+const getById = (req, res, next) => {
+	userService.getUserById(req.params.id)
+	.then(user => {
+		user ? res.json(user) : res.status(404).json({message: 'User not found with given ID'});
+	})
+	.catch(err => {
+		console.log("Error while fetching details by id",err);
+		// next(err);
+	})
+}
 myRouter.post('/login', login);
 myRouter.post('/register', register);
+myRouter.get('/:id',getById)
 
 module.exports = myRouter;
