@@ -68,4 +68,32 @@ const deleteUserById = async (id) => {
 	return await User.findByIdAndDelete(id);
 }
 
-module.exports = { createUser, loginUser, getUserById, deleteUserById };
+const updateUserById = async(id, userData) => {
+	const user = await User.findById(id);
+
+	if(!user){ console.log("User not found for given id")}
+
+	if(userData.firstName){
+		var firstName = userData.firstName;
+		user.firstName = firstName;
+	}
+
+	if(userData.lastName){
+		var lastName = userData.lastName;
+		user.lastName = lastName;
+	}
+
+	if(userData.email){
+		const tempEmail = User.findOne({email: userData.email});
+		if((user.email !== userData.email) && tempEmail){
+			console.log("This Email address is already registered with us. Please try different one.")
+		} else {
+			user.email = userData.email;
+		}
+	}
+
+	const updatedUser = await User.findById(id).update(userData);
+	return await User.findById(id).select('-password'); // Avoid to add password send along with updated info
+}
+
+module.exports = { createUser, loginUser, getUserById, deleteUserById, updateUserById };

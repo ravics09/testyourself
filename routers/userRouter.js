@@ -48,9 +48,23 @@ const deleteUser = (req, res, next) => {
 			// next(err) 
 		})
 }
+
+const updateUser = (req, res, next) => {
+	userService.updateUserById(req.params.id, req.body)
+	.then(user => {
+		console.log("User details updated successfully");
+		res.json({ message: 'Details are successfully updated', updatedDetails: user });
+	})
+	.catch(err => {
+		console.log("User updatation failed due to err:",err);
+		res.json({ message: 'This Email address is already registered with us. Please try different one.', Error: err });
+		// next(err);
+	})
+}
 myRouter.post('/login', login);
 myRouter.post('/register', register);
 myRouter.get('/:id', authService.verifyToken, getById);
 myRouter.delete('/:id', authService.verifyToken, deleteUser);
+myRouter.put('/:id', authService.verifyToken, updateUser);
 
 module.exports = myRouter;
