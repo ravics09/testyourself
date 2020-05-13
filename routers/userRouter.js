@@ -38,6 +38,6 @@ const getById = (req, res, next) => {
 }
 myRouter.post('/login', login);
 myRouter.post('/register', register);
-myRouter.get('/:id',getById)
+myRouter.get('/:id', authService.verifyToken, getById);
 
 module.exports = myRouter;

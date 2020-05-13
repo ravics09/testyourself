@@ -28,14 +28,14 @@ const generateToken = (res, next, user, to) => {
 }
 
 const verifyToken = (req, res, next) => {
-    const token = req.header('access_token');
+    const token = req.headers.authorization;
     if (!token) {
         res.status(401).json({ message: 'NoTokenFoundInRequest' });
     }
 
     jwt.verify(token, secretKey, { expiresIn: expireIn, algorithm: 'HS256' }, (err, decoded) => {
         if (err) {
-            console.log("Error wile decoding token");
+            console.log("Error wile decoding token", err);
             throw err;
         }
         next();
