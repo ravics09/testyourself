@@ -5,12 +5,12 @@ dotenv.config();
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
-mongoose.connection.on('connected',()=>{
+mongoose.connection.on('connected', () => {
 	console.log("Connected to database", process.env.DATABASE_NAME);
 });
 
 mongoose.connection.on('error', err => {
-    console.log("Database connection error " + err);
+	console.log("Database connection error " + err);
 });
 
 module.exports = {
