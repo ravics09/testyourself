@@ -2,10 +2,22 @@ const db = require('../config/connection');
 const Test = db.Test;
 
 const addQuestion = async (testData) => {
-    const test = Test(testData);
-    await test.save();
+	const test = Test(testData);
 
-    return {
+	let n = false;
+	if (await Test.findOne({ quesNumber: testData.quesNumber }))
+		n = true;
+
+	if (n) {
+		return {
+			response: {
+				message: 'Questions Number' + quesNumber + 'is already inserted. Please try other number.'
+			}
+		}
+	}
+	await test.save();
+
+	return {
 		response: {
 			message: 'You have successfully inserted questions !!',
 			testInfo: test
@@ -14,16 +26,16 @@ const addQuestion = async (testData) => {
 }
 
 const getTestDataByName = async (name) => {
-	const test = await Test.find({'topicName':name});
-	if(test) return test;
-	else{
+	const test = await Test.find({ 'topicName': name });
+	if (test) return test;
+	else {
 		return {
 			response: {
 				message: 'No test data found !!'
 			}
 		}
 	}
-	
+
 }
 
 module.exports = { addQuestion, getTestDataByName };

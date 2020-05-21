@@ -6,8 +6,8 @@ const testSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    quesNumber: {
-        type: Number,
+    quesCode: {
+        type: String,
         unique: true,
         required: true,
         trim: true
