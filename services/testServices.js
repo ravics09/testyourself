@@ -25,7 +25,7 @@ const addQuestion = async (testData) => {
 	}
 }
 
-const getTestDataByName = async (name) => {
+const getTestDataByTopic = async (name) => {
 	const test = await Test.find({ 'topicName': name });
 	if (test) return test;
 	else {
@@ -38,4 +38,17 @@ const getTestDataByName = async (name) => {
 
 }
 
-module.exports = { addQuestion, getTestDataByName };
+const getDataByQuesCode = async (code) => {
+	const test = await Test.find({ 'quesCode': code });
+	if (test) return test;
+	else {
+		return {
+			response: {
+				message: 'No test data found !!'
+			}
+		}
+	}
+
+}
+
+module.exports = { addQuestion, getTestDataByTopic, getDataByQuesCode };

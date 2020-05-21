@@ -4,13 +4,15 @@ const testSchema = mongoose.Schema({
     topicName: { 
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        lowercase: true
     },
     quesCode: {
         type: String,
         unique: true,
         required: true,
-        trim: true
+        trim: true,
+        lowercase: true
     },
     question: {
         type: String,

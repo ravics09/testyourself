@@ -14,7 +14,7 @@ const addQuestion = (req, res, next) => {
 }
 
 const getTestDataByTopicName = (req, res, next) => {
-	testService.getTestDataByName(req.params.id)
+	testService.getTestDataByTopic(req.params.name)
 		.then(test => {
 			test ? res.json(test) : res.status(404).json({ message: 'Test data not found with given name' });
 		})
@@ -24,7 +24,19 @@ const getTestDataByTopicName = (req, res, next) => {
 		})
 }
 
+const getQuestionByCode = (req, res, next) => {
+	testService.getDataByQuesCode(req.params.quesCode)
+		.then(test => {
+			test ? res.json(test) : res.status(404).json({ message: 'Question not found with given code' });
+		})
+		.catch(err => {
+			console.log("Error while fetching details by id", err);
+			// next(err);
+		})
+}
+
 testRouter.post('/insertTestData', addQuestion);
-testRouter.get('/:id', getTestDataByTopicName);
+testRouter.get('/:name', getTestDataByTopicName);
+testRouter.get('/:name/:quesCode', getQuestionByCode);
 
 module.exports = testRouter;
