@@ -35,8 +35,21 @@ const getQuestionByCode = (req, res, next) => {
 		})
 }
 
+const updateQuestion = (req, res, next) => {
+	testService.updateQuestionByCode(req.params.quesCode, req.body)
+	.then(data => {
+		// console.log("Question details updated successfully");
+		res.json({ message: 'Details are successfully updated', updatedQuestion: data });
+	})
+	.catch(err => {
+		console.log("Question updatation failed due to err:",err);
+		// next(err);
+	})
+}
+
 testRouter.post('/insertTestData', addQuestion);
 testRouter.get('/:name', getTestDataByTopicName);
 testRouter.get('/:name/:quesCode', getQuestionByCode);
+testRouter.put('/:quesCode', updateQuestion);
 
 module.exports = testRouter;

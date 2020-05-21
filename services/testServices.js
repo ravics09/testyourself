@@ -39,7 +39,7 @@ const getTestDataByTopic = async (name) => {
 }
 
 const getDataByQuesCode = async (code) => {
-	const test = await Test.find({ 'quesCode': code });
+	const test = await Test.findOne({ 'quesCode': code });
 	if (test) return test;
 	else {
 		return {
@@ -51,4 +51,24 @@ const getDataByQuesCode = async (code) => {
 
 }
 
-module.exports = { addQuestion, getTestDataByTopic, getDataByQuesCode };
+const updateQuestionByCode = async(code, questionData) => {
+	const test = await Test.findOne({ 'quesCode': code });
+	console.log("question info",test);
+	if(!test){ console.log("question info not found for given code")}
+
+	if(questionData.question){
+		var question = questionData.question;
+		test.question = question;
+	}
+
+	if(questionData.answer){
+		var answer = questionData.answer;
+		test.answer = answer;
+	}
+
+
+	const updatedQuestion = await Test.findOne({ 'quesCode': code }).update(questionData);
+	return await Test.findOne({ 'quesCode': code }); // Avoid to add password send along with updated info
+}
+
+module.exports = { addQuestion, getTestDataByTopic, getDataByQuesCode, updateQuestionByCode };
