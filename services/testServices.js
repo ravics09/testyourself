@@ -14,7 +14,7 @@ const addQuestion = async (testData) => {
 }
 
 const getTestDataByName = async (name) => {
-	const test = await Test.find({'topic.name':name});
+	const test = await Test.find({'topicName':name});
 	if(test) return test;
 	else{
 		return {

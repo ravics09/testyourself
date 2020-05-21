@@ -3,7 +3,6 @@ const testRouter = express.Router();
 const testService = require('../services/testServices');
 
 const addQuestion = (req, res, next) => {
-    console.log("inside test Router",req.body);
     testService.addQuestion(req.body)
         .then(data => {
             res.json(data)
