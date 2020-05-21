@@ -14,5 +14,6 @@ mongoose.connection.on('error', err => {
 });
 
 module.exports = {
-	User: require('./../models/userModel')
+	User: require('./../models/userModel'),
+	Test: require('./../models/testModel')
 }
