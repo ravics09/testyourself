@@ -5,13 +5,13 @@ const addQuestion = async (testData) => {
 	const test = Test(testData);
 
 	let n = false;
-	if (await Test.findOne({ quesNumber: testData.quesNumber }))
+	if (await Test.findOne({ quesCode: testData.quesCode }))
 		n = true;
 
 	if (n) {
 		return {
 			response: {
-				message: 'Questions Number' + quesNumber + 'is already inserted. Please try other number.'
+				message: 'Questions Number' + quesCode + 'is already inserted. Please try other number.'
 			}
 		}
 	}
