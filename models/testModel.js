@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const testSchema = mongoose.Schema({
-    topicName: {
+    topicName: { 
         type: String,
+        required: true,
+        trim: true
+    },
+    quesNumber: {
+        type: Number,
+        unique: true,
         required: true,
         trim: true
     },
